@@ -1,0 +1,119 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <title>Project</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div id="body">
+        <form role="form" id="keyword" method="POST" enctype='multipart/form-data' onsubmit="return validation()" action="{% url 'project:searchcont' %}">
+            {% csrf_token %}
+            <div>
+                <p>
+                    In this section, you could input the specific reaction or substrate and limit the range of flux mass. In this way, you could see how many cycles they engage, what the top cycles with maximum flux mass and their flux distribution. If not,
+                    the top 10 cycles with the maximum flux mass among all the cycles would be shown by defalut. If you want to input two elements, you should use dot "," as the separator, for example, <span>"R_ACAROtu,M_acaro_u"</span>
+                </p>
+            </div>
+            <div class="input-group mb-6" id="reaction">
+                <input type="text" name="hash_str" id="hash_str" value='{{hash_str}}' style="display:none">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-placement="bottom" data-toggle="tooltip" title="Please input the specific reaction/substrate you want to see in the cycles">Which Reaction/Substrate</span>
+                </div>
+                <div class="custom-file">
+                    <input type="text" class="form-control" name="reactionword" id = "reactionword">
+                </div>
+                <div class="input-group-prepend"><span class="input-group-text">Min Value</span></div>
+                <div class="custom-file">
+                    <input type="text" class="form-control" name="min_value" id = "min_value" value=0>
+                </div>
+                <div class="input-group-prepend"><span class="input-group-text">Max Value</span></div>
+                <div class="custom-file">
+                    <input type="text" class="form-control" name="max_value" id = "max_value" value=1000000>
+                </div>
+                <button class="btn" type="reset">Reset</button>
+                <button class="btn" type="submit">Submit</button>
+            </div>
+        </form>
+        <hr>
+        <div id="search_result" class="col-12"><span>{{search_result}}</span></div>
+        <ul id="news-lis">
+            {% for key,value in s_cycles_num.items %}
+                <li>
+                    <div class="news-item row">
+                        <div class="col-8">
+                            <a class="news">
+                                <h6>Cycle {{current_num|multiply:20|add:forloop.counter}}&nbsp;&nbsp;&nbsp; Value:{{value}}</h6>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            {% csrf_token %}
+                            <a class="btn btn-primary btn-sm view" value="View">View</a>
+                            <a class="btn btn-primary btn-sm download" value="download">Download</a>
+                        </div>
+                    </div>
+                    <div class="news-body" style="display: none">
+                        <p id="cycle">{{key}}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="my_image" scr="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page" class="c-pages container">
+            <div class="row"  id="summary">
+                <div id="count" class="cp-item col-4">
+                    <span>共</span>
+                    <span id="cp-count">{{count}}</span>
+                    <span>条</span>
+                </div>
+                <div id="now" class="cp-item col-4">
+                    <span id="curr-page">{{current_num}}</span>
+                    <span>/</span>
+                    <span id="total-page">{{page_num}}</span>
+                </div>
+                <div id="turn" class="cp-item col-4">
+                    <input id="search-page">
+                    <a id='go' class="btn btn-primary btn-sm">GO</a>
+                </div>
+            </div>
+            <div class="row" id="page-ul">                
+                <ul class="pagination">
+                    {% if cycle.has_previous %}
+                        <li class="page-item"><a href="/searchresult/{{hash_str}}/?page={{cycle.previous_page_number}}">PRE</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="disabled" href="#">PREVIOUS</a></li>
+                    {% endif %}
+                    {% for page in page_range %}
+                        <li class="page-item page_num"><a href="/searchresult/{{hash_str}}/?page={{page}}">{{page}}</a></li>
+                    {% endfor %}
+                    {% if cycle.has_next %}
+                        <li class="page-item"><a href="/searchresult/{{hash_str}}/?page={{cycle.next_page_number}}">NEXT</a></li>
+                    {% else %}
+                        <li class="page-item"><a  class="disabled" href="#">NEXT</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+
+    <script type="text/javascript" src="{% static 'js/search.js' %}"></script>
+</body>
+</html>

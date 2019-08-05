@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+    <title>404</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div id="body">
+        <div id="error" class="row">
+            <div id="errorlogo"><img id="errorimg" src="{% static '/image/logo.png' %}"></div>
+            <div id="information">
+                <h1>FBA</h1>
+                <p id="tip"><span>404</span>. That is an error</p>
+                <p><span>The requested URL /404 was not found on this server.</span></p>
+                <p>That is all we know.</p>
+                <p id="turn"><a href="/webApp">GO TO HOME PAGE</a></p>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

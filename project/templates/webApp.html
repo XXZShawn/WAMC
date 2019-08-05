@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/webApp.css' %}">
+    <title>Project</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div id="body">
+        <div id="error"><span>{{error_message}}</span><span id="remove" class="fa fa-remove" style="font-size:1rem"></span></div>
+        <form role="form" method="POST" enctype='multipart/form-data' onsubmit="return validation()" action="{% url 'project:webAppcont' %}">
+        {% csrf_token %}
+            <div class="input-group mb-2" id = "FileInput">
+                <div class="input-group-prepend"><span class="input-group-text">Update</span></div>
+                <div class="custom-file">
+                    <input class="custom-file-input" name="model_input" type = "file" id = "model">
+                    <label class="custom-file-label" for="model" id="model_label">Choose File</label>
+                </div>
+            </div>
+            <hr />
+            <div class="radio" id="Condition">
+                <div class="row-size">
+                    <label><span>GROWTH CONDITION</span></label>
+                </div>
+                <div class="row-size condition-bar" style="padding-left:2rem">
+                    <label class="radio-inline"><input type = "radio" name = "growcondition" id="growcondition1" checked = "checked" value=1>&nbsp;Autotrophic</label>
+                    <label><input type = "radio" name = "growcondition" id="growcondition2" value=2>&nbsp;Mixotrophic</label>
+                    <label><input type = "radio" name = "growcondition" id="growcondition3" value=3>&nbsp;Heterotrophic</label>
+                </div>
+            </div>
+            <div id="Variables">   
+                <label><span>Nutrient Availability</span></label>
+                <p>The nutrient below would have an influence on the distribution of metabolic resources. The range of these variables we set here is between -1000 and 1000, and the step is 0.001.</p>
+            </div>
+            <div class="flex-box vars-size">
+                <div class='flex-item input-group mb-2 var-size' id="Acetate">
+                    <div class="input-group-pretend"><span class="input-group-text">Acetate</div>
+                    <input class="form-control" type="number" name="ac" step=0.001 value=0 min=-1000 max=1000>
+                </div>
+                <div class='flex-item input-group mb-2 var-size' id="h">
+                    <div class="input-group-pretend"><span class="input-group-text">H</div>
+                    <input class="form-control" type="number" name="h" step=0.001 value=-10 min=-1000 max=1000>
+                </div>
+                <div class="flex-item input-group mb-2 var-size" id='h2o'>
+                    <div class="input-group-pretend"><span class="input-group-text">H2O</div>
+                    <input class="form-control" type="number" name="h2o" step=0.001 value=-10 min=-1000 max=1000>
+                </div> 
+                <div class="flex-item input-group mb-2 var-size" id='Pi'>
+                    <div class="input-group-pretend"><span class="input-group-text">Pi</div>
+                    <input class="form-control" type="number" name="pi" step=0.001 value=-10 min=-1000 max=1000>
+                </div> 
+            </div>
+            <div class="flex-box vars-size">
+                <div class="flex-item input-group mb-2 var-size" id="nh4">
+                    <div class="input-group-pretend"><span class="input-group-text">NH4</div>
+                    <input class="form-control" type="number" name="nh4" step=0.001 value=-10 min=-1000 max=1000>
+                </div>
+                <div class="flex-item input-group mb-2 var-size" id="no3">
+                    <div class="input-group-pretend"><span class="input-group-text">NO3</div>
+                    <input class="form-control" type="number" name="no3" step=0.001 value=-10 min=-1000 max=1000>
+                </div>
+                <div class="flex-item input-group mb-2 var-size" id='so4'>
+                    <div class="input-group-pretend"><span class="input-group-text">SO4</div>
+                    <input class="form-control" type="number" name="so4" step=0.001 value=-10 min=-1000 max=1000>
+                </div> 
+                <div class="flex-item input-group mb-2 var-size" id='o2'>
+                    <div class="input-group-pretend"><span class="input-group-text">O2</div>
+                    <input class="form-control" type="number" name="o2" step=0.001 value=-10 min=-1000 max=1000>
+                </div> 
+            </div>
+            <hr />
+            <div id="run" style="text-align: right;margin-bottom:10rem" >
+                <input class="btn btn-primary" type="reset" value="reset" id="reset" style="margin-right:1rem">
+                <input class="btn btn-primary" type="submit" value="submit" id="run">
+            </div>
+        </form>
+    </div>
+    {% include 'footer.html' %}
+
+<script type="text/javascript">
+    function validation(){
+    inputs=document.getElementsByTagName("input");
+    for (i=0;i<inputs.length;i++){
+        if(!inputs[i].value){
+            alert("ERROR: YOU NEED TO FILL ALL THE INPUTS");
+            return false;
+        }
+    }
+    model_input=document.getElementById("model");
+    pos = model_input.value.lastIndexOf(".");
+    name = model_input.value.substring(pos+1);
+    if (name !="xml"){
+        alert("ERROR: PLEASE INPUT THE XML FILE");
+        return false;
+    }
+    return true;
+    }
+    $(window).keydown(function (e) { 
+        key = e.which;
+        if(key == 13){
+            $("#run").click()
+        }
+    });
+    function error(){
+        error_message = document.getElementById("error").innerText;
+        if (error_message == ""){
+            $("#error").hide();
+        }
+    }
+    $(function(){
+        $("#remove").click(function (e) { 
+            $("#error").slideUp();
+        });
+        $("#FileInput").on('change','input[type="file"]',function(){
+            file_path = $(this).val();
+            arr = file_path.split("\\");
+            file_name = arr[arr.length-1];
+            $("#model_label").html(file_name);
+        })
+        $("#reset").on("click",function(){
+            $("#model_label").html("Choose File");
+        })
+    })
+</script>
+</body>
+</html>

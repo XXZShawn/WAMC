@@ -1,0 +1,67 @@
+p{
+    text-align: justify;
+}
+#how{
+    margin-bottom:15rem;
+}
+span{
+    font-weight:bold;
+}
+h3{
+    margin-top:2rem;
+}
+h5{
+    font-family: -webkit-pictograph;
+    font-weight: bold;
+    margin-top: 1.2rem;
+}
+table{
+    width: 100%;
+}
+tr{
+    text-align: center;
+}
+th{
+    text-align: center;
+    font-weight: normal;
+}
+th a{
+    color: black;
+}
+.p{
+    font-family: serif;
+    font-size: 1.1rem;
+}
+#index{
+    margin-top: 1.5rem;
+    position: fixed;
+}
+#index div{
+    padding-bottom:0.8rem;
+    padding-top: 0.5rem;
+    padding-left:0.5rem;
+    padding-right: 0.5rem;
+    background-color:  #f7f7f7;
+}
+#index div i{
+    font-size:0.8rem;
+}
+#index div a{
+    color:#001c38;
+}
+nav{
+    padding:0 !important;
+}
+nav li{
+    margin-bottom:0.8rem;
+}
+button{
+    background-color: #0c0c0c !important;
+}
+#content{
+    margin-left: 30%;
+}
+.usage img{
+    width: 100%;
+    height: auto;
+}

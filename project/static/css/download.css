@@ -1,0 +1,41 @@
+*{
+    border: 0px solid transparent !important;
+}
+thead{
+   font-size:1.3rem;
+}
+.url{
+    width:30rem;
+}
+.format{
+    width: 10rem;
+}
+.format div{
+    width:100%;
+}
+.radio input{
+    margin-right:0.2rem;
+}
+.radio label{
+    width: 100%;
+    margin:0;
+}
+#scripts{
+    padding: 0 11%;
+}
+h6{
+    font-size:1.3rem;
+    font-weight: bold;
+}
+p{
+    font-size: 1rem;
+    font-family: serif;
+    padding: 0 2rem;
+    color: #464545;
+}
+#zip a{
+    padding:0 2rem;
+}
+#zip div{
+    margin-bottom: 1rem;
+}

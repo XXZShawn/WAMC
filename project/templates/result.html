@@ -1,0 +1,112 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+    <title>Project</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div id="body">
+        <hr>
+        <div class="row" id="title">
+            <div class="row" id="titlename">
+                <h2>Cycle Decomposition</h2>
+                <a id="search" href="/search/{{hash_str}}" data-toggle="tooltip" title="Search Specific Reaction or Substance"><i class="oi oi-magnifying-glass"></i></a>
+            </div>
+        </div>
+        <div id="file_input">
+            <p>In this section, you should input the <span>TXT</span> file containing cycles of reactions and substrates. And by clicking the button <span>Submit</span>, by default, you could visulize
+            all the cycles and download the images. After you have input the <span>TXT</span> file and submit it, you could click the <span>Search <i class="oi oi-magnifying-glass"></i> </span> icon above to redirect another page and visualize the specific cycles contianing specific reaction or substrate. </p>
+            <form role="form" id="cyclefile" method="POST" enctype='multipart/form-data' onsubmit="return validation()" action="{% url 'project:result' %}">
+                {% csrf_token %}
+                <div class="input-group mb-3" id = "FileInput">
+                    <div class="custom-file">
+                        <input class="custom-file-input" name="file_input" type = "file" id = "file">
+                        <label class="custom-file-label" for="file" id="file_label">Choose File</label>
+                    </div>
+                    <button class="btn" id="reset" type="reset">Reset</button>
+                    <button class="btn" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <ul id="news-lis">
+            {% for key,value in cycles_num.items %}
+                <li>
+                    <div class="news-item row">
+                        <div class="col-8 all">
+                            <a class="news">
+                                <h6>Cycle {{current_num|multiply:20|add:forloop.counter}} &nbsp;&nbsp;&nbsp; Value:{{value}}</h6>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            {% csrf_token %}
+                            <a class="btn btn-primary btn-sm view" value="View">View</a>
+                            <a class="btn btn-primary btn-sm download" value="download">Download</a>
+                        </div>
+                    </div>
+                    <div class="news-body" style="display: none">
+                        <p id="cycle">{{key}}</p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header"> 
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="my_image" scr="#">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page" class="c-pages container">
+            <div class="row"  id="summary">
+                <div id="count" class="cp-item col-4">
+                    <span>共</span>
+                    <span id="cp-count">{{count}}</span>
+                    <span>条</span>
+                </div>
+                <div id="now" class="cp-item col-4">
+                    <span id="curr-page">{{current_num}}</span>
+                    <span>/</span>
+                    <span id="total-page">{{page_num}}</span>
+                </div>
+                <div id="turn" class="cp-item col-4">
+                    <input id="search-page">
+                    <a id='go' class="btn btn-primary btn-sm">GO</a>
+                </div>
+            </div>
+            <div class="row" id="page-ul">                
+                <ul class="pagination">
+                    {% if cycle.has_previous %}
+                        <li class="page-item"><a href="/resultcont/{{hash_str}}/?page={{cycle.previous_page_number}}">PRE</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="disabled" href="#">PREVIOUS</a></li>
+                    {% endif %}
+                    {% for page in page_range %}
+                        <li class="page-item page_num"><a href="/resultcont/{{hash_str}}/?page={{page}}">{{page}}</a></li>
+                    {% endfor %}
+                    {% if cycle.has_next %}
+                        <li class="page-item"><a href="/resultcont/{{hash_str}}/?page={{cycle.next_page_number}}">NEXT</a></li>
+                    {% else %}
+                        <li class="page-item"><a  class="disabled" href="#">NEXT</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+
+    <script type="text/javascript" src="{% static 'js/result.js' %}"></script>
+</body>
+</html>

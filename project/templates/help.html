@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/help.css' %}">
+    <title>FAQ</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <div id="body">
+        <div class="row">
+            <div class='col-3' id="index">
+                <nav class="navbar navbar-expand-md navbar-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#index_list">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="index_list">
+                        <ul class="nav navbar-nav flex-column">
+                            <li class="nav-item"><i class="oi oi-menu"></i>&nbsp;<a href="#why">Why use this Web Interface?</a></li>
+                            <li class="nav-item"><i class="oi oi-menu"></i>&nbsp;<a href="#how">How to Use this Web Interface?</a></li>              
+                            <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="oi oi-map-marker"></i>&nbsp;<a href="#home_page">Home</a></li>
+                            <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="oi oi-map-marker"></i>&nbsp;<a href="#FBA_page">FBA</a></li>
+                            <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="oi oi-map-marker"></i>&nbsp;<a href="#usage">Cycle decomposition script</a></li>
+                            <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="oi oi-map-marker"></i>&nbsp;<a href="#visualize_page">Cycle</a></li>
+                            <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="oi oi-map-marker"></i>&nbsp;<a href="#search_page">Cycle Search</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-8" id='content'>
+                <div id="why">
+                    <h3>Why Use this Web Interface ?</h3>
+                    <p>
+                        Metabolic reactions allow living cells to produce the compounds they need to survive and grow, and they form a complex network made of 
+                        numerous structures, among which, cycles play a vital role of maintaining dynamic stability in the system. <br>
+                        <br>
+                        Previously, an algorithm enabling the decomposition of metabolic fluxes into cyclic and acyclic components was developed and it could be used to 
+                        study how changes in nutrient availability or environmental conditions affect the distribution of metabolic resources. Based on this, this web interface is 
+                        designed to apply such cyclic decompositions to a large number of conditions and enable non-computational experts to use this technique, facilitating the use of this tool by biologists. <br>
+                        <br>
+                        To be specific, this web interface could <a href="/webApp">read different metabolic models, define environmental conditions, apply cyclic decomposition</a> and <a href="/result">display the results in a visually friendly manner</a>. 
+                        Meanwhile, if you want, you could download the relevant files and images for further study.
+                    </p>
+                </div>
+                <div id="how">
+                    <h3>How to Use this Web Interface ?</h3>
+                    <br>
+                    <table id="process">
+                        <tr>
+                            <th><a href="#home_page">On Home page, input metabolic models and define environmental conditions</a></th>
+                        </tr>
+                        <tr>
+                            <th><i class="oi oi-arrow-bottom"></i></th>
+                        </tr>
+                        <tr>
+                            <th><a href="#FBA_page">On FAB page, make flux balance analysis and download relevant results</a></th>
+                        </tr>
+                        <tr>
+                            <th><i class="oi oi-arrow-bottom"></i></th>
+                        </tr>
+                        <tr>
+                            <th><a href="#usage">On FBA page, download decomposition scripts and refer to the usage, make cyclic decomposition</a></th>
+                        </tr>
+                        <tr>
+                            <th><i class="oi oi-arrow-bottom"></i></th>
+                        </tr>
+                        <tr>
+                            <th><a href="#visualize_page">On the Cycle page, input the script output and visulize or download all the cycles</a></th>
+                        </tr>
+                        <tr>
+                            <th><i class="oi oi-arrow-bottom"></i></th>
+                        </tr>
+                        <tr>
+                            <th><a href="#search_page">Visualize or download the cycles with specific metabolites or constrained flux values.</a></th>
+                        </tr>
+                    </table>
+                    <br>
+                    <div id="process">
+                        <h5 id="home_page">Home</h5>
+                        <p class="p">On the <a href="/webApp">Home</a> page, you should input the metabolic model.To be noticed here, it only accepts XML file. And the evrionmental conditions and nutrient availability would have
+                        an impact on the distribution of flux in the metabolic network. Therefore, you should choose one of the growth conditons, Autotrophic, Mixotrophic or Heterotrophic and besides, the amount of nutrient such as 
+                        Acetate, H, H2O and so on shold be set as well and the range of these variables we set here is between -1000 and 1000, and the step is 0.001.</p>
+                        <hr>
+                        <h5 id="FBA_page">FBA</h5>
+                        <p class="p">
+                            By submitting the metabolic model on the <a href="/webApp">Home</a> page, it would go to FBA page. Here, flux balance analysis(FBA) algorithm would be applied to the model and you can get the steady-state reaction flux distribution in a metabolic network based on 
+                            principle of conservation of mass. Meanwhile, you could download the result in different file formats, txt or csv. And among these files, Fluxes file describes the pFAB_status, objective value and fluxes of the metabolic value and Fluxes Distribution files include the
+                            reactions and their flux values, and what should be noticed here is that the files here only include reactions with species whose compartment is <span>h,u,m or c</span>.
+                        </p>
+                        <p class="p">
+                            Besides, you should download the cycle decomposition scripts according to your computer System whether it is Mac, Linux or Windows. And the <a href="#usage">usage</a> explained below is based on the MAC.
+                        </p>
+                        <p class="p">
+                            By the way, the icon <span>FBA</span> in the Navigation Bar is disabled and you could only go to it through the <a href="/webApp">Home</a> page.
+                        </p>
+                        <hr>
+                        <h5 id="usage">Cycle Decomposition Scripts</h5>
+                        <p class="p">
+                            <p class="p">On the FBA page, you have downloaded the cycle decomposition scripts and this section would show you how to use it.</p>
+                            <p class="subtitle"><span>A. Check Perl</span></p>
+                            <p class="p">Firstly, check Perl is installed on your computer or not by running the command like the figure shows.</p>
+                            <p class="usage"><img src="{% static '/image/perl.png' %}"></p>
+                            <p class="p">And if not, you could download Perl on your OS from <a href="http://www.perl.org/get.html">http://www.perl.org/get.html</a></p>
+
+                            <p class="subtitle"><span>B. Change Variables</span></p>
+                            <p class="p">Unzip the scripts and put the Fluxes Distribution files in the corresponding directory. And this part would take compartment <span>u</span> as an example.</p>
+                            <p class="p">Firstly, you should enter the <span>compartments</span> directory and because we take <span>u</span> as an example, then enter the <span>u</span> directory. Because the algorithm we use 
+                            in this project is <span>LNA</span>, you should enter the <span>lna</span> directory and put the Fluxes Distribution file about speices whose compartment is u here. Next, you should rename the file to "<span>chlamydomonas_lna.csv</span>".
+                            <p class="p">In the next step, go to the root directory and change the variable <span>compartment</span> in the <span>chlamy_decomposition_color_flux.02.pl line 8</span> and for example, change it into "u".</p>
+                         
+                            <p class="subtitle"><span>C. Run</span></p>
+                            <p class="p">Finally, you should run the <span>chlamy_decomposition_color_flux.02.pl</span> and you would see some new files. And the TXT file describing cycles you would use in the following section would be stored in the <span>lna</span> directory corresponding to the compartment and in this example, it is "<span>u</span>".</p>
+                            <p>To be noticed here, the process explained above is based on the MAC and it is the same on the Windows.</p>
+                        </p>
+                        <hr>
+                        <h5 id="visualize_page">Cycle</h5>
+                        <p class="p">
+                            On the <a href="/result">Cycle</a> page, you should input the TXT file describing cycles, which you could get by running the cyclic decomposition scripts. And by submitting, the text descriptions for all the cycles 
+                            would be shown in the ascending order of flux value. Because the number of cycles may be too large, pagination is completed and 20 cycles are shown in one page by default, and of course, you could go to different pages and see the 
+                            next twenty cycles. And by clicking the button <span>View</span>, you could visulize the corresponding cycle and by clicking the button <span>Download</span> button, you could download the 
+                            corresponding cycle.
+                        </p>
+                        <p class="p">To be noticed, after submitting the file, you could see that the icon <span>Search <i class="oi oi-magnifying-glass"></i></span> appears next to the title <span>Cycle Decomposition</span> now, and you could click it 
+                            to search specific cycles.
+                        </p>
+                        <hr>
+                        <h5 id="search_page">Cycle Search</h5>
+                        <p class="p">
+                            By clicking the icon <span>Search <i class="oi oi-magnifying-glass"></i></span>, it would go to the seach page, which could only go to through <a href="/result">Cycle</a> page. And here,
+                            based on your requirements, you should input the specific reactions or metabolites and what should be emphasized here, if you want to input more that one element, you should use dot "<span>,</span>" 
+                            as the separator, for example, 'R_ACAROtu,M_acaro_u'. Besides, you could also set the value lower and upper boundary to limit the range of flux range and by default, the lower boundary is 0 and the upper boundary is 1000000.
+                        </p>
+                        <p class="p">And by submitting the contraints, like the <a href="/result">Cycle</a> page, a list of text description for all the cycles meeting the contraints would be shown and pagination is also completed here. Besides, the number of cycles found would be gave as well.
+                        And you could also click the button <span>View</span> or <span>Download</span> to visualize or download the corresponding cycle.
+                        </p>
+                        <hr>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script type="text/javascript" src="{% static '/js/help.js' %}"></script>
+</body>
+</html>

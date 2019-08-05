@@ -1,0 +1,95 @@
+{% load static %}
+{% load tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include 'head.html' %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/download.css' %}">
+    <title>Project</title>
+</head>
+<body>
+    {% include 'header.html' %}
+    <form id="body" role="form" method="POST" enctype='multipart/form-data' action="{% url 'project:cont' %}">
+        {% csrf_token %}
+        <table class="table table-responsive">
+            <thead id="title">
+                <tr>
+                    <th>#</th>
+                    <th>File</th>
+                    <th colspan="2">Format</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">1</td>
+                    <td class="url"><a>Fluxes</a></td>
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxestxt' }} checked="checked">TXT</label>
+                        </div>
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxescsv' }}>CSV</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td scope="row">2</td>
+                    <td class="url"><a>Fluxes Distribution</a></td>
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxesReactioncsv_h' }}>h_CSV</label>
+                        </div>
+                    </td>
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxesReactioncsv_u' }}>u_CSV</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxesReactioncsv_m' }}>m_CSV</label>
+                        </div>
+                    </td> 
+                    <td class="format">
+                        <div class="radio">
+                            <label><input type="radio" name="fluxes" value={{ hash_str|filter_t:'fluxesReactioncsv_c' }}>c_CSV</label>
+                        </div>
+                    </td> 
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-primary" type="submit">Download</button></td>
+                </tr>
+            </tbody> 
+        </table>
+    </form>
+    <div id="scripts">
+        <h6>#&nbsp;&nbsp;&nbsp;&nbsp;Scripts</h6>
+        <div><p>After performing Flux Balance Analysis, in this section, you could download the cycle decomposition scripts to extract cycles from the metabolic networks by clicking the link below based on your computer system. And the usage of this
+        algorithm are explained in the <a href="/help/#usage"><span>Help</span></a> page.</p></div>
+        <div id="zip">
+            <div><a href="{% static 'Decomposition_scripts_Linux_or_Mac.zip' %}" download >Cycle Decomposition Script_Linux_or_Mac</a></div>
+            <div><a href="{% static 'Decomposition_scripts_Windows.zip' %}" download >Cycle Decomposition Script_Windows</a></div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+
+    <script type="text/javascript">
+        $('.active').removeClass('active')
+        $("#download").addClass("active");
+        $("a").mousedown(function () { 
+            $(this).css("color","grey");
+        });
+    </script>
+</body>

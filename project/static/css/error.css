@@ -1,0 +1,36 @@
+#error{
+    padding-top:5% !important;
+    padding-left:10% !important;
+}
+h1{
+    margin-bottom:1.5rem;
+}
+p{
+    margin-bottom:0.5rem;
+    color:#919496 !important;
+}
+span{
+    font-weight:bold;
+    color:black;
+}
+#tip{
+    margin-bottom:2rem;
+}
+#errorlogo{
+    width: 40%;
+}
+#errorimg{
+    width:80%;
+    height:auto;
+}
+#information{
+    padding-top:3%;
+}
+#turn{
+    margin-top: 0.5rem;
+}
+#turn a{
+    color: #519ada;
+    font-size:0.8rem;
+    font-family:-webkit-pictograph;
+}

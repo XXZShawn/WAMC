@@ -1,0 +1,57 @@
+#Condition{
+    font-size:1.2rem;
+}
+.row-size{
+    margin-bottom: 0.5rem;
+}
+.condition-bar label{
+    margin-right: 4rem;
+}
+.flex-box{
+    flex-wrap: wrap;
+    display: flex;
+}
+.flex-item{
+    flex-grow:1;
+    max-width:10.5rem;
+}
+#body span{
+    font-weight: bold;
+}
+#Variables{
+    font-size:1.2rem;
+    margin-bottom: 0.5rem;
+}
+.vars-size{
+    margin-bottom:0.5rem;
+    padding-left:3rem
+}
+.var-size{
+    margin-right:1rem;
+}
+.input-group-pretend{
+    width:5rem;
+}
+#error{
+    width:100%;
+    background-color: bisque;
+    text-align: center;
+    font-size:2rem;
+    font-family:monospace;
+    border-radius:0.5rem;
+}
+#error span{
+    font-weight:normal;
+}
+#remove{
+    font-size:0.8rem;
+    position:absolute;
+    right:10%;
+    font-weight:normal;
+}
+p{
+    font-size: 1rem;
+    font-family: serif;
+    padding: 0 2rem;
+    color: #464545;
+}
