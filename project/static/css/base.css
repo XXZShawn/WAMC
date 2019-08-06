@@ -59,13 +59,24 @@
     margin:0px auto;
     text-align: center;
 }
+#contact{
+    text-align:center;
+    color: white;
+    padding-bottom: 10px;
+}
 img{
     height:2.5rem;
-    width:auto;
+    width: 5rem;;
     margin:1% 0;
 }
 #root span{
     color:floralwhite;
+}
+#root a{
+    color:floralwhite;
+}
+#mail{
+    margin-left:5rem;
 }
 #body{
     padding:0 10%;

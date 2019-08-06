@@ -49,10 +49,10 @@ th a{
 #index div a{
     color:#001c38;
 }
-nav{
+#nav-content{
     padding:0 !important;
 }
-nav li{
+#nav-content li{
     margin-bottom:0.8rem;
 }
 button{
